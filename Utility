@@ -1,0 +1,43 @@
+function apiUrl() {
+    return 'http:URL';
+
+  //  return 'http://localhost:64077/';
+
+}
+function signout() {
+    sessionStorage.clear();
+    localStorage.clear();
+    if (sessionStorage.getItem('AuthorizationData') != "") {
+        window.location = 'index.html';
+    }
+}
+function goBack() {
+    
+    window.history.back();
+}
+
+function goBackMonthly() {
+    localStorage.removeItem('ParkerDetails');
+    localStorage.removeItem('PermitDetails');
+    localStorage.removeItem('RemainingCount');
+    localStorage.removeItem('RemainingPermit');
+    localStorage.removeItem('SingleCount');
+    localStorage.removeItem('TandemCount');
+    localStorage.removeItem('VehicleDetails');
+    localStorage.removeItem('TotalVehC');
+    window.location.href = 'permit-reserved.html';
+
+   
+}
+
+function setAuth(obj) {
+    var arr = [];
+    return arr;
+}
+function setQuery(obj) {
+    var arr1 = [];
+    return arr1;
+}
+
+
+
