@@ -1,0 +1,44 @@
+  $(document).ready(function () {
+            getTransientTickets();
+        });
+        function getTransientTickets() {
+            var name = '';
+            debugger;
+            var body = {
+                transientDate: sessionStorage.getItem("FilterData").split(',')[0],
+                parkingLocationId: sessionStorage.getItem("FilterData").split(',')[1],
+                ticketNumber: sessionStorage.getItem("FilterData").split(',')[2],
+                licenseNumber: sessionStorage.getItem("FilterData").split(',')[3]
+            };
+             
+            $.ajax({
+                url: apiUrl() + 'api/FindTransientTicketForWeb',
+                type: 'GET',
+                dataType: 'json',
+                data: body,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (result2) {
+                    debugger;
+                    var html = "";
+                    for (var i = 0; i < result2.length; i++) {
+                        //name = GetUserLoginDetails((result2[i].UserId));
+                        html += '<tr><td>' + result2[i].Issued24FormatDatetime + '</td><td><a href="#" onclick="getticketdetails(\'' + result2[i].TicketNumber + '\',\'' + result2[i].TicketId + '\',\'' + result2[i].ParkingName + '\')">' + result2[i].TicketNumber + '</a></td><td> ' + result2[i].LicenseNumber + '</a></td><td>' + result2[i].Status + '</td><td>' + result2[i].ParkingName + '</td><td>' + result2[i].IssuedBy + '</td></tr>';
+                    }
+                    $("#transientTicketRow").append(html);
+                    $('.loader').hide();
+                   if(html == ""){
+                       alert("Data not available!");
+                       window.location = "find-transient-ticket.html";
+                   }
+                     
+                },
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.getItem("AuthorizationData").split(',')[0]);
+                    $('.loader').show();
+                },
+                error: function (result2) {
+                    debugger;
+                    console.log(result2);
+                }
+            });
+        }
