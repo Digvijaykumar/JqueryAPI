@@ -86,7 +86,7 @@ $.ajax({
         })
       });
 function forgotPassword() {
-    debugger;
+    debugger; 
     if ($("#forgetPassword").valid()) { 
     userId = (sessionStorage.getItem("AuthorizationData").split(',')[1]);
     newPassword = $("#password").val();
