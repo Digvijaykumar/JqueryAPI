@@ -52,30 +52,29 @@ function filterItems(arr, query) {
 }
 
 function searchBoxModal(val) {
-    $("#searchList").empty();
     var appUrl = $('#hdn-url').val();
     if (val.length > 2) {
         //console.log(val);
-        var html = "<ul id='scroll-1' class='list-group scrollbar'>";
+        var html = "<ul id='scroll-1' class=''>";
         // post data to server
         $('.loader').show();
         getData(appUrl).then(function(resp) {
 
             if (resp.status) {
                 console.log("success list!!!", resp)
-                var searchValue = resp.Searh;
-                var searchCont = filterItems(searchValue, val);
+                var sText = resp.Searh;
+                var searchCont = filterItems(sText, val);
                 for (var i = 0; i < searchCont.length; i++) {
                     html += '<li onclick="selectSearch(\'' + searchCont[i] + '\')">' + searchCont[i] + '</li>';
                 }
                 html += "</ul>";
 
-                $("#searchList").empty();
-                $("#searchList").append(html);
-                $('#searchList li:first-child').addClass('selected');
+                $("#searchlst").empty();
+                $("#searchlst").append(html);
+                $('#searchlst li:first-child').addClass('selected');
                 $('.loader').hide();
             } else {
-                $("#searchList").empty();
+                $("#searchlst").empty();
                 alert("data not valid!!!");
             }
         }).
@@ -154,14 +153,14 @@ $(document).ready(function() {
                         alert("Data inserted successfully!!!");
                         redirectURL = resData.RedirectToURL;
                       //  window.open(resData.RedirectToURL,'_self');
-                      $('.otp-modal').modal('show');
+                      $('.otpModal').modal('show');
                     } else {
                         alert("Invalid Details!!!!");
                     }
                 }).
                 catch(function(err) {
                     console.log(err);
-                    $('.otp-modal').modal('show');
+                    //$('.otpModal').modal('show');
                 })
 
             } else {
